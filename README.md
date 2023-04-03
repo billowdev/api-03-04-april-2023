@@ -566,7 +566,7 @@ app.post('/users', (req, res, next) => {
 })
 ```
 
-## PART 2-5 - UPDATE USER
+## PART 2-4 - UPDATE USER
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 
 - ตัวอย่างการอัปเดตข้อมูล
