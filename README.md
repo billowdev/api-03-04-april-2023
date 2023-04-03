@@ -515,25 +515,27 @@ const connection = mysql.createConnection({
 
 - ทดสอบดึงข้อมูลจากฐานข้อมูล
 ```js
-app.get('/users', (req, res, next) => {
-  connection.query(
-    'SELECT * FROM `users`',
-    function(err, results, fields) {
-      res.json(results);
-    }
-  );
-})
+app.get('/users', async (req, res, next) => {
+  try {
+    const results = await connection.query('SELECT * FROM `users`');
+	 res.status(200).json({message:"get user was successfully", payload:results});
+} catch (error) {
+	 res.status(400).json({message:"get user was failed"});
+  }
+});
 
-app.get('/users/:id', (req, res, next) => {
-  const id = req.params.id;
-  connection.query(
-    'SELECT * FROM `users` WHERE `id` = ?',
-    [id],
-    function(err, results) {
-      res.json(results);
-    }
-  );
-})
+app.get('/users/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const results = await connection.query(
+      'SELECT * FROM `users` WHERE `id` = ?',
+      [id]
+    );
+     res.status(200).json({message:"get user by id was successfully", payload:results});
+  } catch (error) {
+    res.status(400).json({message:"get user was failed"});
+  }
+});
 ```
 
 
@@ -541,13 +543,57 @@ app.get('/users/:id', (req, res, next) => {
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 - insert user
 ```js
-app.post('/users', (req, res, next) => {
-  connection.query(
-    'INSERT INTO `users`(`fname`, `lname`, `username`, `password`, `avatar`) VALUES (?, ?, ?, ?, ?)',
-    [req.body.fname, req.body.lname, req.body.username, req.body.password, req.body.avatar],
-    function(err, results) {
-      res.json(results);
-    }
-  );
+app.post('/users',  (req, res, next) =>{
+	try {
+		connection.query(
+			'INSERT INTO `users`(`fname`, `lname`, `username`, `password`, `avatar`) VALUES (?, ?, ?, ?, ?)',
+			[req.body.fname, req.body.lname, req.body.username, req.body.password, req.body.avatar],
+			(err, results) =>{
+			 res.status(201).json({message:"create user was successfully", payload:results});
+			}
+		  );
+	} catch (error) {
+		res.status(400).json({message:"create user was failed"});
+	}
+  })
+```
+
+## PART 2-4 - UPDATE USER
+### > [กลับไปที่สารบัญ](#สารบัญ)
+
+- ตัวอย่างการอัปเดตข้อมูล
+```js
+app.put('/users/:id', (req, res, next) => {
+	try {
+		connection.query(
+			'UPDATE `users` SET `fname`= ?, `lname`= ?, `username`= ?, `password`= ?, `avatar`= ? WHERE id = ?',
+			[req.body.fname, req.body.lname, req.body.username, req.body.password, req.body.avatar, req.params.id],
+			(err, results) => {
+				res.json({message:"update user was successfully", payload:results});
+			}
+		);
+	} catch (error) {
+		res.status(400).json({message:"update user was failed"});
+	}
 })
+```
+
+## PART 2-4 - DELETE USER
+### > [กลับไปที่สารบัญ](#สารบัญ)
+
+- ตัวอย่างการลบข้อมูล
+```js
+app.delete('/users/:id',  (req, res, next) => {
+	try {
+		connection.query(
+			'DELETE FROM `users` WHERE id = ?',
+			[req.params.id],
+			function(err, results) {
+			  res.status(200).json({message:"delete user was successfully", payload:results});
+			}
+		  );
+	} catch (error) {
+		res.status(400).json({message:"delete user was failed"});
+	}
+  })
 ```
