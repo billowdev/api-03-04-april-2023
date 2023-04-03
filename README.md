@@ -1,7 +1,7 @@
 # api-03-04-april-2023
 อบรม API
 
-## part 1 - intro 
+## PART 1 - intro 
 
 #### `server.js` โค้ดเริ่มต้นสำหรับ สร้าง server โดดยใช้ http library
 ```js
@@ -42,7 +42,7 @@ nodemon index.js
 
 
 
-## part 2 - สร้าง route ด้วย express
+## PART 2 - สร้าง route ด้วย express
 - ติดตั้ง express http framework
 ```bash
 npm install express --save
@@ -70,7 +70,7 @@ app.listen(PORT, () => {
 nodemon app.js
 ```
 
-## part 3 - ตัวอย่างการสร้าง api
+## PART 3 - ตัวอย่างการสร้าง api
 
 - สร้างไฟล์ชื่อ `app-demo.js`
 
@@ -95,7 +95,7 @@ nodemon app-demo.js
 ```
 
 
-## part 4 - การสร้าง script
+## PART 4 - การสร้าง script
 
 - สร้าง script เพื่อรันแอป โดยสามารถแก้ไขได้ที่ package.json ในส่วน scripts เช่น `"dev": "nodemon ./server.js"` ตัวอย่างดังภาพ
 
@@ -124,4 +124,28 @@ nodemon app-demo.js
     "nodemon": "^2.0.22"
   }
 }
+```
+
+
+## PART 5 - RESTful API
+
+- สร้าง `db.json` เป็นการจำลอง json เพื่อใช้ในการทดสอบ 
+```json
+[
+	{
+	  "id": 1,
+	  "username": "user1",
+	  "name": "Alice"
+	},
+	{
+	  "id": 2,
+	  "username": "user2",
+	  "name": "Lac"
+	},
+	{
+	  "id": 3,
+	  "username": "user3",
+	  "name": "Billo"
+	}
+]
 ```
