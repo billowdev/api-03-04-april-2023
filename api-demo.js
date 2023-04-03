@@ -46,3 +46,4 @@ res.json(`Delete user '${users[user].username}' was successfully.`)
 app.listen(PORT, ()=>{
 	console.log(`SERVER ON PORT ${PORT}`)
 })
+
