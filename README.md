@@ -2,7 +2,7 @@
 
 # สารบัญ
 
-### [Basic Demo](#demo-basic)
+### [1. Basic API](#1-basic-api-1)
 - [PART 1-1 - Intro ](#part-1-1---Intro)
 - [PART 1-2 - สร้าง Route ด้วย express](#part-1-2---สร้าง-route-ด้วย-express)
 - [PART 1-3 - ตัวอย่างการสร้าง API](#part-1-3---ตัวอย่างการสร้าง-api)
@@ -13,12 +13,20 @@
 - [PART 1-8 - Mehod PUT](#part-1-8---method-put)
 - [PART 1-9 - Mehod DELETE](#part-1-9---method-delete)
 
-### [Basic Mysql ](#demo-mysql)
+### [2. Basic API MySql](#2-basic-api-mysql-1)
+
 - [PART 2-1 - Create new app Express and MySQL](#part-2-1---create-new-app-express-and-mysql)
 
-# demo-basic
+- [PART 2-2 - Connect MySQL Database
+](#part-2-2---connect-mysql-database)
 
-### PART 1-1 - Intro 
+- [PART 2-3 - CREATE USER](#part-2-3---create-user)
+
+
+
+# 1. Basic API
+
+## PART 1-1 - Intro 
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 #### `server.js` โค้ดเริ่มต้นสำหรับ สร้าง server โดดยใช้ http library
 ```js
@@ -58,7 +66,7 @@ nodemon index.js
 - แทนที่ index.js ด้วย ชื่อแอปของคุณ
 
 
-### PART 1-2 - สร้าง route ด้วย express
+## PART 1-2 - สร้าง route ด้วย express
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 - ติดตั้ง express http framework
 ```bash
@@ -87,7 +95,7 @@ app.listen(PORT, () => {
 nodemon app.js
 ```
 
-### PART 1-3 - ตัวอย่างการสร้าง API
+## PART 1-3 - ตัวอย่างการสร้าง API
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 - สร้างไฟล์ชื่อ `app-demo.js`
 
@@ -112,7 +120,7 @@ nodemon app-demo.js
 ```
 
 
-### PART 1-4 - การสร้าง Scripts
+## PART 1-4 - การสร้าง Scripts
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 - สร้าง script เพื่อรันแอป โดยสามารถแก้ไขได้ที่ package.json ในส่วน scripts เช่น `"dev": "nodemon ./server.js"` ตัวอย่างดังภาพ
 
@@ -144,7 +152,7 @@ nodemon app-demo.js
 ```
 
 
-### PART 1-5 - RESTful API
+## PART 1-5 - RESTful API
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 - สร้าง `db.json` เป็นการจำลอง json เพื่อใช้ในการทดสอบ 
 ```json
@@ -202,7 +210,7 @@ app.listen(PORT, ()=>{
 })
 ```
 
-# PART 1-6 - Method GET and Api params
+## PART 1-6 - Method GET and Api params
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 - สร้าง api route มี endpoint คือ /users/:id เพื่อดึงข้อมูล users จาก `users`
 
@@ -236,7 +244,7 @@ app.listen(PORT, ()=>{
 })
 ```
 
-### PART 1-7 - Using JSON and Method POST
+## PART 1-7 - Using JSON and Method POST
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 
 - ติดตั้ง body-parser
@@ -312,7 +320,7 @@ app.listen(PORT, ()=>{
 })
 ```
 
-### PART 1-8 - METHOD PUT
+## PART 1-8 - METHOD PUT
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 - โค้ดตัวอย่าง METHOD PUT /users:id
 ```js
@@ -370,7 +378,7 @@ app.listen(PORT, ()=>{
 ```
 
 
-### PART 1-9 - METHOD DELETE
+## PART 1-9 - METHOD DELETE
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 
 - ตัวอย่างโค้ด  METHOD DELETE  /users:id
@@ -434,10 +442,10 @@ app.listen(PORT, ()=>{
 })
 ```
 
-# demo-mysql
-
-### PART 2-1 - Create new app Express and MySQL
+# 2. Basic API MySql
 ### > [กลับไปที่สารบัญ](#สารบัญ)
+
+## PART 2-1 - Create new app Express and MySQL
 
 - create folder `demo-mysql`
 ```bash
@@ -455,21 +463,23 @@ npm init -y
 - create index.js
 ```js
 const express = require('express')
+const cors = require('express')
 const PORT = process.env.PORT || 5000
 const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cors())
 
 app.listen(PORT, ()=>{
-	console.log(`SERVER ON PORT ${PORT}`)
+	console.log(`Cors enabled server listening on ${PORT}`)
 })
 
 ```
 - install essential package
 
 ```bash
-npm install express mysql2 cors
+npm install express mysql2 cors --save
 ```
 
 - install nodemon
@@ -479,4 +489,65 @@ npm install -D nodemon
 - install nodemon in global
 ```bash
 npm install -g nodemon
+```
+
+
+## PART 2-2 - Connect MySQL Database
+### > [กลับไปที่สารบัญ](#สารบัญ)
+- connect db
+```js
+const connection = mysql.createConnection({
+	host: 'localhost',
+	user: 'root',
+	password: '',
+	database: 'basic_api_express_db'
+  });
+```
+- หรือ หากมีการใช้ .env
+```js
+const connection = mysql.createConnection({
+	host: process.env.DB_HOSTNAME,
+	user: process.env.DB_USERNAME,
+	password: process.env.DB_PASSWORD,
+	database: process.env.DB_DATABASE
+  });
+```
+
+- ทดสอบดึงข้อมูลจากฐานข้อมูล
+```js
+app.get('/users', (req, res, next) => {
+  connection.query(
+    'SELECT * FROM `users`',
+    function(err, results, fields) {
+      res.json(results);
+    }
+  );
+})
+
+app.get('/users/:id', (req, res, next) => {
+  const id = req.params.id;
+  connection.query(
+    'SELECT * FROM `users` WHERE `id` = ?',
+    [id],
+    function(err, results) {
+      res.json(results);
+    }
+  );
+})
+```
+
+
+## PART 2-3 - CREATE USER
+### > [กลับไปที่สารบัญ](#สารบัญ)
+- insert user
+```js
+app.post('/users', (req, res, next) => {
+  connection.query(
+    'INSERT INTO `users`(`fname`, `lname`, `username`, `password`, `avatar`) VALUES (?, ?, ?, ?, ?)',
+    [req.body.fname, req.body.lname, req.body.username, req.body.password, req.body.avatar],
+    function(err, results) {
+      res.json(results);
+    }
+  );
+})
 ```
