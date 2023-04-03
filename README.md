@@ -21,6 +21,8 @@
 ](#part-2-2---connect-mysql-database)
 
 - [PART 2-3 - CREATE USER](#part-2-3---create-user)
+- [PART 2-4 - UPDATE USER](#part-2-4---update-user)
+- [PART 2-5 - DELETE USER](#part-2-5---delete-user)
 
 
 
@@ -564,7 +566,7 @@ app.post('/users', (req, res, next) => {
 })
 ```
 
-## PART 2-4 - UPDATE USER
+## PART 2-5 - UPDATE USER
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 
 - ตัวอย่างการอัปเดตข้อมูล
@@ -584,7 +586,7 @@ app.put('/users/:id', (req, res, next) => {
 })
 ```
 
-## PART 2-4 - DELETE USER
+## PART 2-5 - DELETE USER
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 
 - ตัวอย่างการลบข้อมูล
