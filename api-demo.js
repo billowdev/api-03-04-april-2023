@@ -21,10 +21,27 @@ app.get('/users/:id', (req, res)=>{
 
 // สร้าง users
 app.post('/users', (req, res) => {
+	// push ข้อมูลจาก body ไปใน users array
 	users.push(req.body)
+	// ดึงเฉพาะข้อมูล username เก็บไว้ใน ตัวแปร useranme
 	let username = req.body.username
-	res.send(`Add user: '${username}' was successfully.`)
+	// ส่ง response กลับไปให้ผู้ใช้งาน api
+	res.json(`Add user: '${username}' was successfully.`)
   })
+
+  // update user
+  app.put('/users/:id', (req, res) => {
+	// ค้นหา user ด้วย id ที่รับมาจาก params
+	const user = users.findIndex(user => user.id === Number(req.params.id))
+	// demo การส่ง response กลับไป ว่าอัปเดตข้อมูลสำเร็จ
+	res.json(`Update user id: '${users[user].id}' was successfully.`)
+  })
+
+// delete user
+app.delete('/users/:id', (req, res) => {
+const user = users.findIndex(user => user.id === Number(req.params.id))
+res.json(`Delete user '${users[user].username}' was successfully.`)
+})
 
 app.listen(PORT, ()=>{
 	console.log(`SERVER ON PORT ${PORT}`)
