@@ -1,5 +1,4 @@
-# api-03-04-april-2023
-อบรม API
+# การอบรม API โดยใช้ JavaScript - Node.js Express  (api-03-04-april-2023)
 
 ## สารบัญ
 - [PART 1 - intro ](#part-1---intro)
@@ -8,6 +7,7 @@
 - [PART 4 - การสร้าง script](#part-4---การสร้าง-script)
 - [PART 5 - RESTful API](#part-5---restful-api)
 - [PART 6 - api params](#part-6---api-params)
+- [PART 7 - Using JSON](#part-7---using-json)
 
 ## PART 1 - intro 
 ### > [กลับไปที่สารบัญ](#สารบัญ)
@@ -171,7 +171,7 @@ app.get('/users', (req, res)=>{
 
 ```
 
-- app-demo.js
+- ตัวอย่าง app-demo.js
 ```js
 const express = require('express')
 const app = express();
@@ -202,7 +202,7 @@ app.get('/users/:id', (req, res)=>{
 	res.json(users.find(el => el.id === Number(req.params.id)))
 })
 ```
-- โค้ด app-demo.js
+- ตัวอย่างโค้ด app-demo.js
 ```js
 const express = require('express')
 const app = express();
@@ -221,6 +221,77 @@ app.get('/users', (req, res)=>{
 app.get('/users/:id', (req, res)=>{
 	res.json(users.find(el => el.id === Number(req.params.id)))
 })
+
+app.listen(PORT, ()=>{
+	console.log(`SERVER ON PORT ${PORT}`)
+})
+```
+
+## PART 7 - Using JSON
+### > [กลับไปที่สารบัญ](#สารบัญ)
+
+- ติดตั้ง body-parser
+```bash
+npm install body-parser --save
+```
+- เพิ่มโค้ดเพื่อใช้งาน json
+- body parser
+- import body-parser
+```js
+const bodyParser = require('body-parser')
+```
+- โค้ดเรียกใช้งาน body-parser
+```js
+const bodyParser = require('body-parser')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+```
+
+- หรือใช้ express
+```js
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+```
+
+- สร้าง user โดยใช้ Method POST
+```js
+app.post('/users', (req, res) => {
+	users.push(req.body)
+	let username = req.body.username
+	res.send(`Add user: '${username}' was successfully.`)
+  })
+
+```
+
+- ตัวอย่าง โค้ด app-demo.js
+```js
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = express();
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+const PORT = process.env.PORT || 5000
+
+const users = require('./db.json')
+
+app.get('/', (req, res)=>{
+	res.send("Hello! Node.js")
+})
+
+app.get('/users', (req, res)=>{
+	res.status(200).json(users)
+})
+
+app.get('/users/:id', (req, res)=>{
+	res.json(users.find(el => el.id === Number(req.params.id)))
+})
+
+// สร้าง users
+app.post('/users', (req, res) => {
+	users.push(req.body)
+	let username = req.body.username
+	res.send(`Add user: '${username}' was successfully.`)
+  })
 
 app.listen(PORT, ()=>{
 	console.log(`SERVER ON PORT ${PORT}`)
