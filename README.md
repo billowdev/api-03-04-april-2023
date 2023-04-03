@@ -26,6 +26,9 @@ server.listen(port, hostname, ()=>{
 npm install -D nodemon
 ```
 หรือ 
+```bash
+npm install --save-dev nodemon
+```
 - ติดตั้งสำหรับ global
 ```bash
 npm install -g nodemon
