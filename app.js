@@ -6,6 +6,10 @@ app.get('/', (req, res) => {
     res.send('Hello Express!');
 });
 
+app.post('/get', (req, res)=>{
+	res.send('Hello about')
+})
+
 app.listen(PORT, () => {
     console.log(`Listening at http://localhost:${PORT}`);
 });

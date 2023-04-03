@@ -39,7 +39,65 @@ npm install -g nodemon
 nodemon index.js
 ```
 - แทนที่ index.js ด้วย ชื่อแอปของคุณ
-- หรือสร้าง script เพื่อรันแอป โดยสามารถแก้ไขได้ที่ package.json ในส่วน scripts เช่น `"dev": "nodemon ./server.js"` ตัวอย่างดังภาพ
+
+
+
+## part 2 - สร้าง route ด้วย express
+- ติดตั้ง express http framework
+```bash
+npm install express --save
+```
+
+- ทำการสร้างไฟล์ `app.js`
+
+- เพิ่มโค้ดสำหรับ import ตัว express js บน server.js
+```js
+const express = require('express');
+const app = express();
+app.use(express.json())
+const PORT = 3000;
+
+app.get('/', (req, res) => {
+    res.send('Hello Express!');
+});
+
+app.listen(PORT, () => {
+    console.log(`Listening at http://localhost:${PORT}`);
+});
+```
+- รันแอปเพื่อทดสอบ
+```bash
+nodemon app.js
+```
+
+## part 3 - ตัวอย่างการสร้าง api
+
+- สร้างไฟล์ชื่อ `app-demo.js`
+
+```js
+const express = require('express')
+const app = express();
+const PORT = process.env.PORT || 5000
+
+
+app.get('/', (req, res)=>{
+	res.send("Hello! Node.js")
+})
+
+app.listen(PORT, ()=>{
+	console.log(`SERVER ON PORT ${PORT}`)
+})
+```
+
+- รันแอปเพื่อทดสอบ
+```bash
+nodemon app-demo.js
+```
+
+
+## part 4 - การสร้าง script
+
+- สร้าง script เพื่อรันแอป โดยสามารถแก้ไขได้ที่ package.json ในส่วน scripts เช่น `"dev": "nodemon ./server.js"` ตัวอย่างดังภาพ
 
 <img src="https://raw.githubusercontent.com/billowdev/api-03-04-april-2023/main/readme/img/img_1.png" alt="example package json">
 
@@ -67,30 +125,3 @@ nodemon index.js
   }
 }
 ```
-
-
-## part 2 - สร้าง route ด้วย express
-- ติดตั้ง express http framework
-```bash
-npm install express --save
-```
-
-- ทำการสร้างไฟล์ `app.js`
-
-- เพิ่มโค้ดสำหรับ import ตัว express js บน server.js
-```js
-const express = require('express');
-const app = express();
-app.use(express.json())
-const PORT = 3000;
-
-app.get('/', (req, res) => {
-    res.send('Hello Express!');
-});
-
-app.listen(PORT, () => {
-    console.log(`Listening at http://localhost:${PORT}`);
-});
-```
-
-
