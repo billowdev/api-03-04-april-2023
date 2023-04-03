@@ -72,16 +72,25 @@ nodemon index.js
 ## part 2 - สร้าง route ด้วย express
 - ติดตั้ง express http framework
 ```bash
-npm i express
+npm install express --save
 ```
+
+- ทำการสร้างไฟล์ `app.js`
 
 - เพิ่มโค้ดสำหรับ import ตัว express js บน server.js
 ```js
-const express = require('express')
-```
-- สร้าง แอปโดยใช้ express และการใช้งาน express.json()
-```js
-const app = express()
+const express = require('express');
+const app = express();
 app.use(express.json())
+const PORT = 3000;
+
+app.get('/', (req, res) => {
+    res.send('Hello Express!');
+});
+
+app.listen(PORT, () => {
+    console.log(`Listening at http://localhost:${PORT}`);
+});
 ```
+
 
