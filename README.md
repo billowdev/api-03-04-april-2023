@@ -1,11 +1,9 @@
 # api-03-04-april-2023
 อบรม API
 
+## part 1 - intro 
 
-server.js
-part 1 
-
-### โค้ดเริ่มต้นสำหรับ สร้าง server โดดยใช้ http library
+#### `server.js` โค้ดเริ่มต้นสำหรับ สร้าง server โดดยใช้ http library
 ```js
 const http = require('http')
 const hostname = '127.0.0.1';
@@ -20,4 +18,20 @@ const server = http.createServer((req, res)=>{
 server.listen(port, hostname, ()=>{
 	console.log(`Server running at http://${hostname}:${port}`)
 })
+```
+
+## install nodemon
+- ติดตั้งสำหรับ dev dependencies ของแอปพลิเคชัน
+```bash
+npm install -D nodemon
+```
+หรือ 
+- ติดตั้งสำหรับ global
+```bash
+npm install -g nodemon
+```
+
+- ใช้คำสั่งเพื่อรันแอป โดยใช้โหนดมอน
+```bash
+
 ```
