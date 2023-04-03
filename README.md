@@ -36,5 +36,8 @@ npm install -g nodemon
 
 - ใช้คำสั่งเพื่อรันแอป โดยใช้โหนดมอน
 ```bash
-
+nodemon index.js
 ```
+- แทนที่ index.js ด้วย ชื่อแอปของคุณ
+- หรือสร้าง script เพื่อรันแอป โดยสามารถแก้ไขได้ที่ package.json ในส่วน scripts เช่น `"dev": "nodemon ./server.js"`
+
