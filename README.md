@@ -67,3 +67,21 @@ nodemon index.js
   }
 }
 ```
+
+
+## part 2 - สร้าง route ด้วย express
+- ติดตั้ง express http framework
+```bash
+npm i express
+```
+
+- เพิ่มโค้ดสำหรับ import ตัว express js บน server.js
+```js
+const express = require('express')
+```
+- สร้าง แอปโดยใช้ express และการใช้งาน express.json()
+```js
+const app = express()
+app.use(express.json())
+```
+
