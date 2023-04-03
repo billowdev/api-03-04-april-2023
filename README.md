@@ -1,6 +1,13 @@
 # api-03-04-april-2023
 อบรม API
 
+## สารบัญ
+- [PART 1 - intro ](#PART5-RESTfulAPI)
+- [PART 2 - สร้าง route ด้วย express](#part-3---สร้าง-route-ด้วย-express)
+- [PART 3 - ตัวอย่างการสร้าง api](#part-3---ตัวอย่างการสร้าง-api)
+- [PART 4 - การสร้าง script](#part-4---การสร้าง-script)
+- [PART 5 - RESTful API](#part-5---restful-api)
+
 ## PART 1 - intro 
 
 #### `server.js` โค้ดเริ่มต้นสำหรับ สร้าง server โดดยใช้ http library
@@ -148,4 +155,39 @@ nodemon app-demo.js
 	  "name": "Billo"
 	}
 ]
+```
+
+- require db.json
+```js
+const users = require('./db.json')
+```
+
+- create route for get users
+```js
+app.get('/users', (req, res)=>{
+	res.json(users)
+})
+
+```
+
+- app-demo.js
+```js
+const express = require('express')
+const app = express();
+const PORT = process.env.PORT || 5000
+
+const users = require('./db.json')
+
+app.get('/', (req, res)=>{
+	res.send("Hello! Node.js")
+})
+
+app.get('/users', (req, res)=>{
+	res.json(users)
+})
+
+
+app.listen(PORT, ()=>{
+	console.log(`SERVER ON PORT ${PORT}`)
+})
 ```
