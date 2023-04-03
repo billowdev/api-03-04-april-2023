@@ -2,10 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "example javascript or node.js application that use express http framework",
-  "main": "server.js",
+  "main": "api-demo.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./app.js"
+    "dev": "nodemon ./app-demo.js"
   },
   "keywords": [],
   "author": "billowdev",

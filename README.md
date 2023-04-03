@@ -7,6 +7,7 @@
 - [PART 3 - ตัวอย่างการสร้าง api](#part-3---ตัวอย่างการสร้าง-api)
 - [PART 4 - การสร้าง script](#part-4---การสร้าง-script)
 - [PART 5 - RESTful API](#part-5---restful-api)
+- [PART 6 - api params](#part-6---api-params)
 
 ## PART 1 - intro 
 ### > [กลับไปที่สารบัญ](#สารบัญ)
@@ -186,6 +187,40 @@ app.get('/users', (req, res)=>{
 	res.json(users)
 })
 
+
+app.listen(PORT, ()=>{
+	console.log(`SERVER ON PORT ${PORT}`)
+})
+```
+
+# PART 6 - api params
+### > [กลับไปที่สารบัญ](#สารบัญ)
+- สร้าง api route มี endpoint คือ /users/:id เพื่อดึงข้อมูล users จาก `users`
+
+```js
+app.get('/users/:id', (req, res)=>{
+	res.json(users.find(el => el.id === Number(req.params.id)))
+})
+```
+- โค้ด app-demo.js
+```js
+const express = require('express')
+const app = express();
+const PORT = process.env.PORT || 5000
+
+const users = require('./db.json')
+
+app.get('/', (req, res)=>{
+	res.send("Hello! Node.js")
+})
+
+app.get('/users', (req, res)=>{
+	res.status(200).json(users)
+})
+
+app.get('/users/:id', (req, res)=>{
+	res.json(users.find(el => el.id === Number(req.params.id)))
+})
 
 app.listen(PORT, ()=>{
 	console.log(`SERVER ON PORT ${PORT}`)

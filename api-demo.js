@@ -12,6 +12,9 @@ app.get('/users', (req, res)=>{
 	res.status(200).json(users)
 })
 
+app.get('/users/:id', (req, res)=>{
+	res.json(users.find(el => el.id === Number(req.params.id)))
+})
 
 app.listen(PORT, ()=>{
 	console.log(`SERVER ON PORT ${PORT}`)

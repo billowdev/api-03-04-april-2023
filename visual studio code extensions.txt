@@ -1,0 +1,7 @@
+ visual studio code extensions
+ 
+Prettier - Code formatter
+https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+
+JavaScript (ES6) code snippets
+https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets
