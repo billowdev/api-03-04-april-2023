@@ -1,16 +1,24 @@
 # การอบรม API โดยใช้ JavaScript Node.js Express <br />(api-03-04-april-2023)
 
-## สารบัญ
-- [PART 1 - Intro ](#part-1---Intro)
-- [PART 2 - สร้าง route ด้วย express](#part-2---สร้าง-route-ด้วย-express)
-- [PART 3 - ตัวอย่างการสร้าง api](#part-3---ตัวอย่างการสร้าง-api)
-- [PART 4 - การสร้าง script](#part-4---การสร้าง-scripts)
-- [PART 5 - RESTful API](#part-5---restful-api)
-- [PART 6 - Api params](#part-6---api-params)
-- [PART 7 - Using JSON](#part-7---using-json-and-method-post)
-- [PART 8 - Mehod PUT](#part-8---method-put)
+# สารบัญ
 
-## PART 1 - Intro 
+### [Basic Demo](#demo-basic)
+- [PART 1-1 - Intro ](#part-1-1---Intro)
+- [PART 1-2 - สร้าง Route ด้วย express](#part-1-2---สร้าง-route-ด้วย-express)
+- [PART 1-3 - ตัวอย่างการสร้าง API](#part-1-3---ตัวอย่างการสร้าง-api)
+- [PART 1-4 - การสร้าง script](#part-1-4---การสร้าง-scripts)
+- [PART 1-5 - RESTful API](#part-1-5---restful-api)
+- [PART 1-6 - Method GET and Api params](#part-1-6---method-get-and-api-params)
+- [PART 1-7 - Using JSON](#part-1-7---using-json-and-method-post)
+- [PART 1-8 - Mehod PUT](#part-1-8---method-put)
+- [PART 1-9 - Mehod DELETE](#part-1-9---method-delete)
+
+### [Basic Mysql ](#demo-mysql)
+- [PART 2-1 - Create new app Express and MySQL](#part-2-1---create-new-app-express-and-mysql)
+
+# demo-basic
+
+### PART 1-1 - Intro 
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 #### `server.js` โค้ดเริ่มต้นสำหรับ สร้าง server โดดยใช้ http library
 ```js
@@ -50,7 +58,7 @@ nodemon index.js
 - แทนที่ index.js ด้วย ชื่อแอปของคุณ
 
 
-## PART 2 - สร้าง route ด้วย express
+### PART 1-2 - สร้าง route ด้วย express
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 - ติดตั้ง express http framework
 ```bash
@@ -79,7 +87,7 @@ app.listen(PORT, () => {
 nodemon app.js
 ```
 
-## PART 3 - ตัวอย่างการสร้าง API
+### PART 1-3 - ตัวอย่างการสร้าง API
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 - สร้างไฟล์ชื่อ `app-demo.js`
 
@@ -104,7 +112,7 @@ nodemon app-demo.js
 ```
 
 
-## PART 4 - การสร้าง Scripts
+### PART 1-4 - การสร้าง Scripts
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 - สร้าง script เพื่อรันแอป โดยสามารถแก้ไขได้ที่ package.json ในส่วน scripts เช่น `"dev": "nodemon ./server.js"` ตัวอย่างดังภาพ
 
@@ -136,7 +144,7 @@ nodemon app-demo.js
 ```
 
 
-## PART 5 - RESTful API
+### PART 1-5 - RESTful API
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 - สร้าง `db.json` เป็นการจำลอง json เพื่อใช้ในการทดสอบ 
 ```json
@@ -194,7 +202,7 @@ app.listen(PORT, ()=>{
 })
 ```
 
-# PART 6 - api params
+# PART 1-6 - Method GET and Api params
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 - สร้าง api route มี endpoint คือ /users/:id เพื่อดึงข้อมูล users จาก `users`
 
@@ -203,7 +211,7 @@ app.get('/users/:id', (req, res)=>{
 	res.json(users.find(el => el.id === Number(req.params.id)))
 })
 ```
-- ตัวอย่างโค้ด app-demo.js
+- ตัวอย่างโค้ดใน `api-demo.js` PART 1-6 - API Params
 ```js
 const express = require('express')
 const app = express();
@@ -228,7 +236,7 @@ app.listen(PORT, ()=>{
 })
 ```
 
-## PART 7 - Using JSON and Method POST
+### PART 1-7 - Using JSON and Method POST
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 
 - ติดตั้ง body-parser
@@ -266,7 +274,7 @@ app.post('/users', (req, res) => {
   })
 ```
 
-- ตัวอย่าง โค้ด app-demo.js
+- ตัวอย่างโค้ดใน `api-demo.js`PART 1-7 - Using JSON and Method POST
 ```js
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -304,7 +312,7 @@ app.listen(PORT, ()=>{
 })
 ```
 
-## PART 8 - METHOD PUT
+### PART 1-8 - METHOD PUT
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 - โค้ดตัวอย่าง METHOD PUT /users:id
 ```js
@@ -315,7 +323,7 @@ app.listen(PORT, ()=>{
 	res.json(`Update user id: '${users[user].id}' was successfully.`)
   })
 ```
-- ตัวอย่างโค้ดใน `api-demo.js` สำหรับ PART 8 - METHOD PUT
+- ตัวอย่างโค้ดใน `api-demo.js` สำหรับ PART 1-8 - METHOD PUT
 ```js
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -362,7 +370,9 @@ app.listen(PORT, ()=>{
 ```
 
 
-## PART 9 - METHOD DELETE
+### PART 1-9 - METHOD DELETE
+### > [กลับไปที่สารบัญ](#สารบัญ)
+
 - ตัวอย่างโค้ด  METHOD DELETE  /users:id
 ```js
 app.delete('/users/:id', (req, res) => {
@@ -371,7 +381,7 @@ res.json(`Delete user '${users[user].username}' was successfully.`)
 })
 ```
 
-- ตัวอย่างโค้ดใน `api-demo.js` PART 9 - METHOD DELETE
+- ตัวอย่างโค้ดใน `api-demo.js` PART 1-9 - METHOD DELETE
 ```js
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -418,7 +428,55 @@ const user = users.findIndex(user => user.id === Number(req.params.id))
 res.json(`Delete user '${users[user].username}' was successfully.`)
 })
 
+
 app.listen(PORT, ()=>{
 	console.log(`SERVER ON PORT ${PORT}`)
 })
+```
+
+# demo-mysql
+
+### PART 2-1 - Create new app Express and MySQL
+### > [กลับไปที่สารบัญ](#สารบัญ)
+
+- create folder `demo-mysql`
+```bash
+mkdir demo-mysql
+```
+- access to folder `demo-mysql`
+```bash
+cd mkdir demo-mysql
+```
+- create node app
+```bash
+npm init -y
+```
+
+- create index.js
+```js
+const express = require('express')
+const PORT = process.env.PORT || 5000
+const app = express()
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+app.listen(PORT, ()=>{
+	console.log(`SERVER ON PORT ${PORT}`)
+})
+
+```
+- install essential package
+
+```bash
+npm install express mysql2 cors
+```
+
+- install nodemon
+```bash
+npm install -D nodemon
+```
+- install nodemon in global
+```bash
+npm install -g nodemon
 ```
