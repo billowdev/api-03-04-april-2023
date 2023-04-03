@@ -2,14 +2,14 @@
 อบรม API
 
 ## สารบัญ
-- [PART 1 - intro ](#PART5-RESTfulAPI)
-- [PART 2 - สร้าง route ด้วย express](#part-3---สร้าง-route-ด้วย-express)
+- [PART 1 - intro ](#part-1---intro)
+- [PART 2 - สร้าง route ด้วย express](#part-2---สร้าง-route-ด้วย-express)
 - [PART 3 - ตัวอย่างการสร้าง api](#part-3---ตัวอย่างการสร้าง-api)
 - [PART 4 - การสร้าง script](#part-4---การสร้าง-script)
 - [PART 5 - RESTful API](#part-5---restful-api)
 
 ## PART 1 - intro 
-
+### > [กลับไปที่สารบัญ](#สารบัญ)
 #### `server.js` โค้ดเริ่มต้นสำหรับ สร้าง server โดดยใช้ http library
 ```js
 const http = require('http')
@@ -48,8 +48,8 @@ nodemon index.js
 - แทนที่ index.js ด้วย ชื่อแอปของคุณ
 
 
-
 ## PART 2 - สร้าง route ด้วย express
+### > [กลับไปที่สารบัญ](#สารบัญ)
 - ติดตั้ง express http framework
 ```bash
 npm install express --save
@@ -78,7 +78,7 @@ nodemon app.js
 ```
 
 ## PART 3 - ตัวอย่างการสร้าง api
-
+### > [กลับไปที่สารบัญ](#สารบัญ)
 - สร้างไฟล์ชื่อ `app-demo.js`
 
 ```js
@@ -103,7 +103,7 @@ nodemon app-demo.js
 
 
 ## PART 4 - การสร้าง script
-
+### > [กลับไปที่สารบัญ](#สารบัญ)
 - สร้าง script เพื่อรันแอป โดยสามารถแก้ไขได้ที่ package.json ในส่วน scripts เช่น `"dev": "nodemon ./server.js"` ตัวอย่างดังภาพ
 
 <img src="https://raw.githubusercontent.com/billowdev/api-03-04-april-2023/main/readme/img/img_1.png" alt="example package json">
@@ -135,7 +135,7 @@ nodemon app-demo.js
 
 
 ## PART 5 - RESTful API
-
+### > [กลับไปที่สารบัญ](#สารบัญ)
 - สร้าง `db.json` เป็นการจำลอง json เพื่อใช้ในการทดสอบ 
 ```json
 [
