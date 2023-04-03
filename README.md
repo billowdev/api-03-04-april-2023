@@ -5,11 +5,9 @@
 server.js
 part 1 
 
+### โค้ดเริ่มต้นสำหรับ สร้าง server โดดยใช้ http library
 ```js
-// const app = express()
-// app.use(express.json())
 const http = require('http')
-const express = require('express')
 const hostname = '127.0.0.1';
 const port = 3000;
 
