@@ -956,7 +956,7 @@ db.sequelize.sync({ force: false })
 ## PART 3-7 - การสร้าง student routes
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 
-- `student.route.js`
+### `student.route.js`
 ```js
 const express = require("express");
 const router = express.Router();
@@ -974,7 +974,7 @@ const studentRoute = require("./routes/student.route");
 app.use("/api/student", studentRoute);
 ```
 
-### ตัวอย่างโค้ดทั้งหมดในไฟล์ server.js สำหรับ PART 3-6 - การสร้าง faculty routes
+### ตัวอย่างโค้ดทั้งหมดในไฟล์ server.js สำหรับ PART 3-6 - หลังจากการสร้าง faculty routes
 ```js
 const express = require('express')
 const app = express();
@@ -1005,7 +1005,7 @@ db.sequelize.sync({ force: false })
 	});
 ```
 
-## PART 3-8 - การสร้าง routes เพิ่มเติม
+## PART 3-8 - การสร้าง routes เพิ่มเติม ใน faculty
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 
 ### สร้าง createOne ใน `faculty.controller.js`
@@ -1025,7 +1025,7 @@ exports.createOne = async (req, res) => {
 }
 ```
 
-### ตัวอย่างโค้ดทั้งหมดในไฟล์ `faculty.controller.js` สำหรับการสร้าง createOne ใน `faculty.controller.js`
+#### ตัวอย่างโค้ดทั้งหมดในไฟล์ `faculty.controller.js` หลังจากการสร้าง createOne ใน `faculty.controller.js`
 ```js
 const db = require('../models')
 const facultyModel = db.facultyModel;
@@ -1062,12 +1062,12 @@ exports.createOne = async (req, res) => {
 }
 ```
 
-### สร้าง route สำหรับ createOne ใน `faculty.route.js`
+#### สร้าง route สำหรับ createOne ใน `faculty.route.js`
 ```js
 router.post("/", facultyController.createOne);
 ```
 
-### ตัวอย่างโค้ดทั้งหมดในไฟล์ `faculty.route.js` สำหรับการสร้าง route สำหรับ createOne ใน `faculty.route.js`
+#### ตัวอย่างโค้ดทั้งหมดในไฟล์ `faculty.route.js` สำหรับการสร้าง route สำหรับ createOne ใน `faculty.route.js`
 
 ```js
 const express = require("express");
@@ -1108,7 +1108,7 @@ exports.update = async (req, res) => {
 	}
 }
 ```
-### ตัวอย่างโค้ดทั้งหมดในไฟล์ `faculty.controller.js` สำหรับการสร้าง update ใน `faculty.controller.js`
+#### ตัวอย่างโค้ดทั้งหมดในไฟล์ `faculty.controller.js` หลังจากการสร้าง update ใน `faculty.controller.js`
 ```js
 const db = require('../models')
 const facultyModel = db.facultyModel;
@@ -1170,12 +1170,12 @@ exports.update = async (req, res) => {
 }
 ```
 
-### สร้าง route สำหรับ update ในไฟล์ `faculty.route.js`
+#### สร้าง route สำหรับ update ในไฟล์ `faculty.route.js`
 ```js
 router.put("/:id", facultyController.update);
 ```
 
-### ตัวอย่างโค้ดทั้งหมดในไฟล์ `faculty.route.js` สำหรับการสร้าง route สำหรับ update
+#### ตัวอย่างโค้ดทั้งหมดในไฟล์ `faculty.route.js` หลังจากการสร้าง route สำหรับ update
 ```js
 const express = require("express");
 const router = express.Router();
@@ -1187,3 +1187,139 @@ router.put("/:id", facultyController.update);
   
 module.exports = router;
 ```
+
+
+### สร้าง delete ใน `faculty.controller.js`
+```js
+exports.delete = async (req, res) => {
+	try {
+		const id = req.params.id;
+		const response = await facultyModel.destroy({
+			where: { fac_id: id }
+		})
+		if (response == 1) {
+			res.status(200).json({
+				message: "delete faculty was successfully",
+				payload: response
+			})
+		} else {
+			res.status(400).json({
+				message: `delete faculty was failed faculty with fac_id=${id}. Maybe faculty was not found!`
+			});
+		}
+	} catch (error) {
+		res.status(500).json({
+			message: error.message || "delete faculty was failed"
+		})
+	}
+}
+```
+
+#### ตัวอย่างโค้ดทั้งหมดในไฟล์ `faculty.controller.js` หลังจากการสร้าง delete ใน `faculty.controller.js`
+```js
+const db = require('../models')
+const facultyModel = db.facultyModel;
+const Op = db.Sequelize.Op;
+
+// get all facultyModel
+exports.findAll = async (req, res) => {
+	try {
+		const response = await facultyModel.findAll()
+		console.log(facultyModel)
+		res.status(200).json({
+			message: "get all faculty was successfully",
+			payload: response
+		})
+	} catch (error) {
+		res.status(500).json({
+			message: error.message || "get all faculty was failed"
+		})
+	}
+}
+
+exports.createOne = async (req, res) => {
+	try {
+		const response = await facultyModel.create(req.body)
+		res.status(201).json({
+			message: "create one faculty was successfully",
+			payload: response
+		})
+	} catch (error) {
+		res.status(500).json({
+			message: error.message || "create one faculty was failed"
+		})
+	}
+}
+
+exports.update = async (req, res) => {
+	try {
+		const id = req.params.id
+
+		const body = req.body
+		const response = await facultyModel.update(body, {
+			where: { fac_id: id },
+		})
+		if (response[0] == 1) {
+			res.status(200).json({
+				message: "update faculty was successfully",
+				payload: response
+			})
+		} else {
+			res.status(400).json({
+				message: `update faculty was failed faculty with fac_id=${id}. Maybe fac was not found or req.body is empty!`
+			});
+		}
+	} catch (error) {
+		res.status(500).json({
+			message: error.message || "update faculty was failed"
+		})
+	}
+}
+
+exports.delete = async (req, res) => {
+	try {
+		const id = req.params.id;
+		const response = await facultyModel.destroy({
+			where: { fac_id: id }
+		})
+		if (response == 1) {
+			res.status(200).json({
+				message: "delete faculty was successfully",
+				payload: response
+			})
+		} else {
+			res.status(400).json({
+				message: `delete faculty was failed faculty with fac_id=${id}. Maybe faculty was not found!`
+			});
+		}
+	} catch (error) {
+		res.status(500).json({
+			message: error.message || "delete faculty was failed"
+		})
+	}
+}
+```
+
+#### สร้าง route สำหรับ delete ใน `faculty.route.js`
+```js
+router.delete("/:id", facultyController.delete);
+```
+
+#### ตัวอย่างโค้ดทั้งหมดในไฟล์ `faculty.route.js` หลังจากการสร้าง route สำหรับ delete ใน `faculty.route.js`
+
+```js
+const express = require("express");
+const router = express.Router();
+const facultyController = require("../controllers/faculty.controller");
+
+router.get("/", facultyController.findAll);
+router.post("/", facultyController.createOne);
+router.put("/:id", facultyController.update);
+router.delete("/:id", facultyController.delete);
+  
+module.exports = router;
+```
+
+
+## PART 3-9 - การสร้าง controller & route สำหรับ student
+### > [กลับไปที่สารบัญ](#สารบัญ)
