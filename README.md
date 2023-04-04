@@ -33,7 +33,8 @@
 - [PART 3-5 - การสร้าง controllers](#part-3-5---การสร้าง-controllers)
 - [PART 3-6 - การสร้าง faculty routes](#part-3-6---การสร้าง-faculty-routes)
 - [PART 3-7 - การสร้าง student routes](#part-3-7---การสร้าง-student-routes)
-- [PART 3-8 - การสร้าง routes เพิ่มเติม](#part-3-8---การสร้าง-routes-เพิ่มเติม)
+- [PART 3-8 - การสร้าง routes เพิ่มเติม](#part-3-8---การสร้าง-routes-เพิ่มเติม-ใน-faculty)
+- [PART 3-9 - การสร้าง controller & route สำหรับ student](#part-3-9---การสร้าง-controller--route-สำหรับ-student)
 
 
 
@@ -762,62 +763,80 @@ db.sequelize.sync({ force: false })
 ## PART 3-4 - สร้างโมเดล Student และ faculty
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 
-### models/student.model.js
-```js
-module.exports = (sequelize, Sequelize) => {
-	const Student = sequelize.define("student", {
-	  stdId: {
-		primaryKey: true,
-		type: Sequelize.STRING,
-		field: "std_id",
-	  },
-	  stdPass: {
-		type: Sequelize.STRING,
-		field: "std_pass",
-	  },
-	  stdName: {
-		type: Sequelize.STRING,
-		field: "std_name",
-	  },
-	  facId: {
-		type: Sequelize.INTEGER,
-		field: "fac_id",
-		unique: false
-	  },
-	}, {
-		sequelize,
-		tableName: 'student',
-		freezeTableName: true,
-		timestamps: false
-	});
-  
-	return Student;
-  };
-```
 ### models/faculty.model.js
 ```js
 module.exports = (sequelize, Sequelize) => {
-	const Faculty = sequelize.define("faculty", {
-	  facultyId: {
-		type: Sequelize.INTEGER,
-		primaryKey: true,
-		autoIncrement: true,
-		field: "fac_id"
-	  },
-	  facultyName: {
-		type: Sequelize.STRING,
-		field: "fac_name",
-	  },
-	},{
-		sequelize,
-		tableName: 'faculty',
-		freezeTableName: true,
-		timestamps: false
-	});
-  
-	return Faculty;
-  };
+    const Faculty = sequelize.define("faculty", {
+        facultyId: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+            field: "fac_id"
+        },
+        facultyName: {
+            type: Sequelize.STRING,
+            field: "fac_name",
+        },
+    }, {
+        sequelize,
+        tableName: 'faculty',
+        freezeTableName: true,
+        timestamps: false
+    });
+
+    Faculty.associate = (models) => {
+        Faculty.hasMany(models.student, {
+            foreignKey: 'fac_id',
+            sourceKey: 'fac_id'
+
+        })
+    }
+    return Faculty;
+
+}
 ```
+
+### models/student.model.js
+```js
+module.exports = (sequelize, Sequelize) => {
+    const Student = sequelize.define("student", {
+        stdId: {
+            primaryKey: true,
+            type: Sequelize.STRING,
+            field: "std_id",
+        },
+        stdPass: {
+            type: Sequelize.STRING,
+            field: "std_pass",
+        },
+        stdName: {
+            type: Sequelize.STRING,
+            field: "std_name",
+        },
+        facId: {
+            type: Sequelize.INTEGER,
+            field: "fac_id",
+            unique: false
+        },
+    }, {
+        sequelize,
+        tableName: 'student',
+        freezeTableName: true,
+        timestamps: false
+    });
+
+    Student.associate = (models) => {
+        Student.hasMany(models.faculty, {
+            foreignKey: 'fac_id',
+            sourceKey: 'fac_id'
+
+        });
+    }
+
+    return Student;
+};
+```
+
 
 ### register model in `models/index.js`
 	- add this code for students
@@ -1116,57 +1135,59 @@ const Op = db.Sequelize.Op;
 
 // get all facultyModel
 exports.findAll = async (req, res) => {
-	try {
-		const response = await facultyModel.findAll()
-		console.log(facultyModel)
-		res.status(200).json({
-			message: "get all faculty was successfully",
-			payload: response
-		})
-	} catch (error) {
-		res.status(500).json({
-			message: error.message || "get all faculty was failed"
-		})
-	}
+    try {
+        const response = await facultyModel.findAll()
+        console.log(facultyModel)
+        res.status(200).json({
+            message: "get all faculty was successfully",
+            payload: response
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: error.message || "get all faculty was failed"
+        })
+    }
 }
 
 exports.createOne = async (req, res) => {
-	try {
-		const response = await facultyModel.create(req.body)
-		res.status(201).json({
-			message: "create one faculty was successfully",
-			payload: response
-		})
-	} catch (error) {
-		res.status(500).json({
-			message: error.message || "create one faculty was failed"
-		})
-	}
+    try {
+        const response = await facultyModel.create(req.body)
+        res.status(201).json({
+            message: "create one faculty was successfully",
+            payload: response
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: error.message || "create one faculty was failed"
+        })
+    }
 }
 
 exports.update = async (req, res) => {
-	try {
-		const id = req.params.id
+    try {
+        const id = req.params.id
 
-		const body = req.body
-		const response = await facultyModel.update(body, {
-			where: { fac_id: id },
-		})
-		if (response[0] == 1) {
-			res.status(200).json({
-				message: "update one faculty was successfully",
-				payload: response
-			})
-		} else {
-			res.status(400).json({
-				message: `update one faculty was failed faculty with fac_id=${id}. Maybe fac was not found or req.body is empty!`
-			});
-		}
-	} catch (error) {
-		res.status(500).json({
-			message: error.message || "update one faculty was failed"
-		})
-	}
+        const body = req.body
+        const response = await facultyModel.update(body, {
+            where: {
+                fac_id: id
+            },
+        })
+        if (response[0] == 1) {
+            res.status(200).json({
+                message: "update one faculty was successfully",
+                payload: response
+            })
+        } else {
+            res.status(400).json({
+                message: `update one faculty was failed faculty with fac_id=${id}. Maybe fac was not found or req.body is empty!`
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: error.message || "update one faculty was failed"
+        })
+    }
 }
 ```
 
@@ -1192,26 +1213,28 @@ module.exports = router;
 ### สร้าง delete ใน `faculty.controller.js`
 ```js
 exports.delete = async (req, res) => {
-	try {
-		const id = req.params.id;
-		const response = await facultyModel.destroy({
-			where: { fac_id: id }
-		})
-		if (response == 1) {
-			res.status(200).json({
-				message: "delete faculty was successfully",
-				payload: response
-			})
-		} else {
-			res.status(400).json({
-				message: `delete faculty was failed faculty with fac_id=${id}. Maybe faculty was not found!`
-			});
-		}
-	} catch (error) {
-		res.status(500).json({
-			message: error.message || "delete faculty was failed"
-		})
-	}
+    try {
+        const id = req.params.id;
+        const response = await facultyModel.destroy({
+            where: {
+                fac_id: id
+            }
+        })
+        if (response == 1) {
+            res.status(200).json({
+                message: "delete faculty was successfully",
+                payload: response
+            })
+        } else {
+            res.status(400).json({
+                message: `delete faculty was failed faculty with fac_id=${id}. Maybe faculty was not found!`
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: error.message || "delete faculty was failed"
+        })
+    }
 }
 ```
 
@@ -1223,80 +1246,84 @@ const Op = db.Sequelize.Op;
 
 // get all facultyModel
 exports.findAll = async (req, res) => {
-	try {
-		const response = await facultyModel.findAll()
-		console.log(facultyModel)
-		res.status(200).json({
-			message: "get all faculty was successfully",
-			payload: response
-		})
-	} catch (error) {
-		res.status(500).json({
-			message: error.message || "get all faculty was failed"
-		})
-	}
+    try {
+        const response = await facultyModel.findAll()
+        console.log(facultyModel)
+        res.status(200).json({
+            message: "get all faculty was successfully",
+            payload: response
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: error.message || "get all faculty was failed"
+        })
+    }
 }
 
 exports.createOne = async (req, res) => {
-	try {
-		const response = await facultyModel.create(req.body)
-		res.status(201).json({
-			message: "create one faculty was successfully",
-			payload: response
-		})
-	} catch (error) {
-		res.status(500).json({
-			message: error.message || "create one faculty was failed"
-		})
-	}
+    try {
+        const response = await facultyModel.create(req.body)
+        res.status(201).json({
+            message: "create one faculty was successfully",
+            payload: response
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: error.message || "create one faculty was failed"
+        })
+    }
 }
 
 exports.update = async (req, res) => {
-	try {
-		const id = req.params.id
+    try {
+        const id = req.params.id
 
-		const body = req.body
-		const response = await facultyModel.update(body, {
-			where: { fac_id: id },
-		})
-		if (response[0] == 1) {
-			res.status(200).json({
-				message: "update faculty was successfully",
-				payload: response
-			})
-		} else {
-			res.status(400).json({
-				message: `update faculty was failed faculty with fac_id=${id}. Maybe fac was not found or req.body is empty!`
-			});
-		}
-	} catch (error) {
-		res.status(500).json({
-			message: error.message || "update faculty was failed"
-		})
-	}
+        const body = req.body
+        const response = await facultyModel.update(body, {
+            where: {
+                fac_id: id
+            },
+        })
+        if (response[0] == 1) {
+            res.status(200).json({
+                message: "update faculty was successfully",
+                payload: response
+            })
+        } else {
+            res.status(400).json({
+                message: `update faculty was failed faculty with fac_id=${id}. Maybe fac was not found or req.body is empty!`
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: error.message || "update faculty was failed"
+        })
+    }
 }
 
 exports.delete = async (req, res) => {
-	try {
-		const id = req.params.id;
-		const response = await facultyModel.destroy({
-			where: { fac_id: id }
-		})
-		if (response == 1) {
-			res.status(200).json({
-				message: "delete faculty was successfully",
-				payload: response
-			})
-		} else {
-			res.status(400).json({
-				message: `delete faculty was failed faculty with fac_id=${id}. Maybe faculty was not found!`
-			});
-		}
-	} catch (error) {
-		res.status(500).json({
-			message: error.message || "delete faculty was failed"
-		})
-	}
+    try {
+        const id = req.params.id;
+        const response = await facultyModel.destroy({
+            where: {
+                fac_id: id
+            }
+        })
+        if (response == 1) {
+            res.status(200).json({
+                message: "delete faculty was successfully",
+                payload: response
+            })
+        } else {
+            res.status(400).json({
+                message: `delete faculty was failed faculty with fac_id=${id}. Maybe faculty was not found!`
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: error.message || "delete faculty was failed"
+        })
+    }
 }
 ```
 
@@ -1318,6 +1345,32 @@ router.put("/:id", facultyController.update);
 router.delete("/:id", facultyController.delete);
   
 module.exports = router;
+```
+
+#### สร้าง controller สำหรับ findOne ใน `faculty.controller.js`
+```js
+exports.findOne = async (req, res) => {
+    try {
+        const id = req.params.id
+        const response = await facultyModel.findOne({
+            where: { fac_id: id }
+        })
+        console.log(facultyModel)
+        res.status(200).json({
+            message: "get one faculty was successfully",
+            payload: response
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: error.message || "get one faculty was failed"
+        })
+    }
+}
+```
+
+#### สร้าง route สำหรับ findOne ใน `faculty.route.js`
+```js
+router.get("/:id", facultyController.findOne)
 ```
 
 

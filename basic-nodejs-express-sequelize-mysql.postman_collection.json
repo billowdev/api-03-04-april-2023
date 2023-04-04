@@ -218,6 +218,133 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "demo-3-sequelize-mysql",
+			"item": [
+				{
+					"name": "faculty",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ep}}/api/faculty",
+							"host": [
+								"{{ep}}"
+							],
+							"path": [
+								"api",
+								"faculty"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fac-create-one",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "facultyName",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{ep}}/api/faculty",
+							"host": [
+								"{{ep}}"
+							],
+							"path": [
+								"api",
+								"faculty"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fac-update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "facultyName",
+									"value": "test updateasdasd",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{ep}}/api/faculty/13",
+							"host": [
+								"{{ep}}"
+							],
+							"path": [
+								"api",
+								"faculty",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fac-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "facultyName",
+									"value": "test updateasdasd",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{ep}}/api/faculty/13",
+							"host": [
+								"{{ep}}"
+							],
+							"path": [
+								"api",
+								"faculty",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "student",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ep}}/api/student",
+							"host": [
+								"{{ep}}"
+							],
+							"path": [
+								"api",
+								"student"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
