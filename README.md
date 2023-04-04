@@ -28,14 +28,18 @@
 
 - [PART 3-1 - การติดตั้ง Sequelize](#part-3-1---การติดตั้ง-sequelize)
 - [PART 3-2 - New project for Sequelize demo](#part-3-2---new-project-for-sequelize-demo)
+- [PART 3-3 - Config Sequelize](#part-3-3---config-sequelize)
 
+- [PART 3-4 - สร้างโมเดล Student และ faculty](#part-3-4---สร้างโมเดล-student-และ-faculty)
+
+- [PART 3-5 - สร้าง controllers](#part-3-5---สร้าง-controllers)
 
 
 # 1. Basic API
 
 ## PART 1-1 - Intro 
 ### > [กลับไปที่สารบัญ](#สารบัญ)
-#### `server.js` โค้ดเริ่มต้นสำหรับ สร้าง server โดดยใช้ http library
+### `server.js` โค้ดเริ่มต้นสำหรับ สร้าง server โดดยใช้ http library
 ```js
 const http = require('http')
 const HOSTNAME = '127.0.0.1';
@@ -52,7 +56,7 @@ server.listen(PORT, HOSTNAME, ()=>{
 })
 ```
 
-## install nodemon
+### install nodemon
 - ติดตั้งสำหรับ dev dependencies ของแอปพลิเคชัน
 ```bash
 npm install -D nodemon
@@ -80,7 +84,7 @@ nodemon index.js
 npm install express --save
 ```
 
-- ทำการสร้างไฟล์ `app.js`
+### ทำการสร้างไฟล์ `app.js`
 
 - เพิ่มโค้ดสำหรับ import ตัว express js บน server.js
 ```js
@@ -97,14 +101,14 @@ app.listen(PORT, () => {
     console.log(`Listening at http://localhost:${PORT}`);
 });
 ```
-- รันแอปเพื่อทดสอบ
+### รันแอปเพื่อทดสอบ
 ```bash
 nodemon app.js
 ```
 
 ## PART 1-3 - ตัวอย่างการสร้าง API
 ### > [กลับไปที่สารบัญ](#สารบัญ)
-- สร้างไฟล์ชื่อ `app-demo.js`
+### สร้างไฟล์ชื่อ `app-demo.js`
 
 ```js
 const express = require('express')
@@ -121,7 +125,7 @@ app.listen(PORT, ()=>{
 })
 ```
 
-- รันแอปเพื่อทดสอบ
+### รันแอปเพื่อทดสอบ
 ```bash
 nodemon app-demo.js
 ```
@@ -129,11 +133,11 @@ nodemon app-demo.js
 
 ## PART 1-4 - การสร้าง Scripts
 ### > [กลับไปที่สารบัญ](#สารบัญ)
-- สร้าง script เพื่อรันแอป โดยสามารถแก้ไขได้ที่ package.json ในส่วน scripts เช่น `"dev": "nodemon ./server.js"` ตัวอย่างดังภาพ
+### สร้าง script เพื่อรันแอป โดยสามารถแก้ไขได้ที่ package.json ในส่วน scripts เช่น `"dev": "nodemon ./server.js"` ตัวอย่างดังภาพ
 
 <img src="https://raw.githubusercontent.com/billowdev/api-03-04-april-2023/main/readme/img/img_1.png" alt="example package json">
 
-- package.json
+### package.json
 ```json
 {
   "name": "server",
@@ -158,10 +162,9 @@ nodemon app-demo.js
 }
 ```
 
-
 ## PART 1-5 - RESTful API
 ### > [กลับไปที่สารบัญ](#สารบัญ)
-- สร้าง `db.json` เป็นการจำลอง json เพื่อใช้ในการทดสอบ 
+### สร้าง `db.json` เป็นการจำลอง json เพื่อใช้ในการทดสอบ 
 ```json
 [
 	{
@@ -182,7 +185,7 @@ nodemon app-demo.js
 ]
 ```
 
-- require db.json
+### require db.json
 ```js
 const users = require('./db.json')
 ```
@@ -195,7 +198,7 @@ app.get('/users', (req, res)=>{
 
 ```
 
-- ตัวอย่าง app-demo.js
+### ตัวอย่าง app-demo.js
 ```js
 const express = require('express')
 const app = express();
@@ -219,14 +222,14 @@ app.listen(PORT, ()=>{
 
 ## PART 1-6 - Method GET and Api params
 ### > [กลับไปที่สารบัญ](#สารบัญ)
-- สร้าง api route มี endpoint คือ /users/:id เพื่อดึงข้อมูล users จาก `users`
+### สร้าง api route มี endpoint คือ /users/:id เพื่อดึงข้อมูล users จาก `users`
 
 ```js
 app.get('/users/:id', (req, res)=>{
 	res.json(users.find(el => el.id === Number(req.params.id)))
 })
 ```
-- ตัวอย่างโค้ดใน `api-demo.js` PART 1-6 - API Params
+### ตัวอย่างโค้ดใน `api-demo.js` PART 1-6 - API Params
 ```js
 const express = require('express')
 const app = express();
@@ -254,7 +257,7 @@ app.listen(PORT, ()=>{
 ## PART 1-7 - Using JSON and Method POST
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 
-- ติดตั้ง body-parser
+### ติดตั้ง body-parser
 ```bash
 npm install body-parser --save
 ```
@@ -264,20 +267,20 @@ npm install body-parser --save
 ```js
 const bodyParser = require('body-parser')
 ```
-- โค้ดเรียกใช้งาน body-parser
+### โค้ดเรียกใช้งาน body-parser
 ```js
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 ```
 
-- หรือใช้ express
+### หรือใช้ express
 ```js
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 ```
 
-- สร้าง user โดยใช้ Method POST
+### สร้าง user โดยใช้ Method POST
 ```js
 app.post('/users', (req, res) => {
 	// push ข้อมูลจาก body ไปใน users array
@@ -289,7 +292,7 @@ app.post('/users', (req, res) => {
   })
 ```
 
-- ตัวอย่างโค้ดใน `api-demo.js`PART 1-7 - Using JSON and Method POST
+### ตัวอย่างโค้ดใน `api-demo.js`PART 1-7 - Using JSON and Method POST
 ```js
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -338,7 +341,7 @@ app.listen(PORT, ()=>{
 	res.json(`Update user id: '${users[user].id}' was successfully.`)
   })
 ```
-- ตัวอย่างโค้ดใน `api-demo.js` สำหรับ PART 1-8 - METHOD PUT
+### ตัวอย่างโค้ดใน `api-demo.js` สำหรับ PART 1-8 - METHOD PUT
 ```js
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -388,7 +391,7 @@ app.listen(PORT, ()=>{
 ## PART 1-9 - METHOD DELETE
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 
-- ตัวอย่างโค้ด  METHOD DELETE  /users:id
+### ตัวอย่างโค้ด  METHOD DELETE  /users:id
 ```js
 app.delete('/users/:id', (req, res) => {
 const user = users.findIndex(user => user.id === Number(req.params.id))
@@ -396,7 +399,7 @@ res.json(`Delete user '${users[user].username}' was successfully.`)
 })
 ```
 
-- ตัวอย่างโค้ดใน `api-demo.js` PART 1-9 - METHOD DELETE
+### ตัวอย่างโค้ดใน `api-demo.js` PART 1-9 - METHOD DELETE
 ```js
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -454,20 +457,20 @@ app.listen(PORT, ()=>{
 
 ## PART 2-1 - Create new app Express and MySQL
 
-- create folder `demo-mysql`
+### create folder `demo-mysql`
 ```bash
 mkdir demo-mysql
 ```
-- access to folder `demo-mysql`
+### access to folder `demo-mysql`
 ```bash
 cd mkdir demo-mysql
 ```
-- create node app
+### create node app
 ```bash
 npm init -y
 ```
 
-- create index.js
+### create index.js
 ```js
 const express = require('express')
 const cors = require('express')
@@ -483,7 +486,7 @@ app.listen(PORT, ()=>{
 })
 
 ```
-- install essential package
+### install essential package
 
 ```bash
 npm install express mysql2 cors --save
@@ -501,7 +504,7 @@ npm install -g nodemon
 
 ## PART 2-2 - Connect MySQL Database
 ### > [กลับไปที่สารบัญ](#สารบัญ)
-- connect db
+### connect db
 ```js
 const connection = mysql.createConnection({
 	host: 'localhost',
@@ -520,7 +523,7 @@ const connection = mysql.createConnection({
   });
 ```
 
-- ทดสอบดึงข้อมูลจากฐานข้อมูล
+### ทดสอบดึงข้อมูลจากฐานข้อมูล
 ```js
 app.get('/users',  (req, res, next) =>{
 	try {
@@ -554,7 +557,7 @@ app.get('/users',  (req, res, next) =>{
 
 ## PART 2-3 - CREATE USER
 ### > [กลับไปที่สารบัญ](#สารบัญ)
-- insert user
+### insert user
 ```js
 app.post('/users', (req, res, next) => {
 	try {
@@ -574,7 +577,7 @@ app.post('/users', (req, res, next) => {
 ## PART 2-4 - UPDATE USER
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 
-- ตัวอย่างการอัปเดตข้อมูล
+### ตัวอย่างการอัปเดตข้อมูล
 ```js
 app.put('/users/:id', (req, res, next) => {
 	try {
@@ -594,7 +597,7 @@ app.put('/users/:id', (req, res, next) => {
 ## PART 2-5 - DELETE USER
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 
-- ตัวอย่างการลบข้อมูล
+### ตัวอย่างการลบข้อมูล
 ```js
 app.delete('/users/:id', (req, res, next) => {
 	try {
@@ -621,7 +624,8 @@ app.delete('/users/:id', (req, res, next) => {
 ```js
 npm install --save sequelize
 ```
-- การติดตั้ง driver สำหรับฐานข้อมูล โดยต้องติดตั้งตามฐานข้อมูลที่ใช้ เช่น mysql จะต้องติดตั้ง mysql2 เป็นต้น
+### การติดตั้ง driver สำหรับฐานข้อมูล 
+- โดยต้องติดตั้งตามฐานข้อมูลที่ใช้ เช่น mysql จะต้องติดตั้ง mysql2 เป็นต้น
 
 - Postgres
 ```js
@@ -653,7 +657,202 @@ npm install --save oracledb
 ```bash
 npm init -y
 ```
-- ติดตั้ง package
+### ติดตั้ง package
 ```bash
 npm install express mysql2 cors sequelize
+npm install -D nodemon
 ```
+### ตัวอย่างโค้ด server.js สำหรับ PART 3-2 - New project for Sequelize demo
+```js
+const express = require('express')
+const app = express();
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+const PORT = process.env.PORT || 5000
+
+app.get('/', (req, res)=>{
+	res.json({message: "Welcome to my app"})
+})
+
+app.listen(PORT, ()=>{
+	console.log(`SERVER ON PORT ${PORT}`)
+})
+```
+
+## PART 3-3 - Config Sequelize
+### > [กลับไปที่สารบัญ](#สารบัญ)
+
+### create folder `config`
+- new file `db.config.js`
+
+```js
+module.exports = {
+	DB_HOST: "localhost",
+	DB_USERNAME: "root",
+	DB_PASSWORD: "",
+	DB_DATABASE: "db_std",
+	dialect: "mysql",
+	pool: {
+	  max: 5,
+	  min: 0,
+	  acquire: 30000,
+	  idle: 10000
+	}
+  };
+```
+
+### ใช้ config ในไฟล์ index.js ในโฟลเดอร์ models
+
+- models/index.js
+```js
+const dbConfig = require("../config/db.config.js");
+
+const Sequelize = require("sequelize");
+const sequelize = new Sequelize(dbConfig.DB_DATABASE, dbConfig.DB_USERNAME, dbConfig.DB_PASSWORD, {
+  host: dbConfig.DB_HOST,
+  dialect: dbConfig.dialect,
+  operatorsAliases: false,
+  pool: {
+    max: dbConfig.pool.max,
+    min: dbConfig.pool.min,
+    acquire: dbConfig.pool.acquire,
+    idle: dbConfig.pool.idle
+  }
+});
+
+const db = {};
+
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
+// for register the model that you create example student model
+// db.students = require("./student.model.js")(sequelize, Sequelize);
+
+module.exports = db;
+```
+
+### for sync database in `server.js`
+
+```js
+const express = require('express')
+const app = express();
+const db = require("./models");
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+const PORT = process.env.PORT || 5000
+
+app.get('/', (req, res) => {
+	res.json({ message: "Welcome to my app" })
+})
+
+db.sequelize.sync({ force: false })
+	.then(() => {
+		console.log("Database was synchronized successfully.");
+		app.listen(PORT, () => {
+			console.log(`SERVER ON PORT ${PORT}`)
+		})
+	})
+	.catch((err) => {
+		console.log("Failed to synchronize database: " + err.message);
+	});
+```
+
+## PART 3-4 - สร้างโมเดล Student และ faculty
+### > [กลับไปที่สารบัญ](#สารบัญ)
+
+### models/student.model.js
+```js
+module.exports = (sequelize, Sequelize) => {
+	const Student = sequelize.define("student", {
+	  stdId: {
+		primaryKey: true,
+		type: Sequelize.STRING,
+		field: "std_id",
+	  },
+	  stdPass: {
+		type: Sequelize.STRING,
+		field: "std_pass",
+	  },
+	  stdName: {
+		type: Sequelize.STRING,
+		field: "std_name",
+	  },
+	  facId: {
+		type: Sequelize.INTEGER,
+		field: "fac_id",
+		unique: false
+	  },
+	}, {
+		sequelize,
+		tableName: 'student',
+		freezeTableName: true,
+		timeStamps: false
+	});
+  
+	return Student;
+  };
+```
+### models/faculty.model.js
+```js
+module.exports = (sequelize, Sequelize) => {
+	const Faculty = sequelize.define("faculty", {
+	  facultyId: {
+		type: Sequelize.INTEGER,
+		primaryKey: true,
+		autoIncrement: true,
+		field: "fac_id"
+	  },
+	  facultyName: {
+		type: Sequelize.STRING,
+		field: "fac_name",
+	  },
+	},{
+		sequelize,
+		tableName: 'faculty',
+		freezeTableName: true,
+		timeStamps: false
+	});
+  
+	return Faculty;
+  };
+```
+
+### register model in `models/index.js`
+	- add this code for students
+
+		`db.students = require("./student.model.js")(sequelize, Sequelize);`
+
+	- add this code for faculty
+		`db.faculty = require("./faculty.model.js")(sequelize, Sequelize);`
+
+### ตัวอย่างโค้ด index.js	
+```js
+const dbConfig = require("../config/db.config.js");
+
+const Sequelize = require("sequelize");
+const sequelize = new Sequelize(dbConfig.DB_DATABASE, dbConfig.DB_USERNAME, dbConfig.DB_PASSWORD, {
+  host: dbConfig.DB_HOST,
+  dialect: dbConfig.dialect,
+  operatorsAliases: false,
+  pool: {
+    max: dbConfig.pool.max,
+    min: dbConfig.pool.min,
+    acquire: dbConfig.pool.acquire,
+    idle: dbConfig.pool.idle
+  }
+});
+
+const db = {};
+
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
+// for register the model that you create example student model
+db.students = require("./student.model.js")(sequelize, Sequelize);
+db.faculty = require("./faculty.model.js")(sequelize, Sequelize);
+
+module.exports = db;
+```
+
+## PART 3-5 - สร้าง controllers
+### > [กลับไปที่สารบัญ](#สารบัญ)
+

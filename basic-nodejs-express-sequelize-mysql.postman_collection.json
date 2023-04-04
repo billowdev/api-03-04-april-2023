@@ -1,0 +1,250 @@
+{
+	"info": {
+		"_postman_id": "a4fb1a6a-c2c2-432c-8178-a4d3a5e34fd5",
+		"name": "basic-nodejs-express-sequelize-mysql",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21020441"
+	},
+	"item": [
+		{
+			"name": "demo-1-baisc",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ep}}/users",
+							"host": [
+								"{{ep}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ep}}/users/2",
+							"host": [
+								"{{ep}}"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n    \"id\": 4,\r\n    \"username\": \"user4\",\r\n    \"name\": \"u4\"\r\n        \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ep}}/users",
+							"host": [
+								"{{ep}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"user2\",\r\n    \"name\": \"edit user2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ep}}/users/2",
+							"host": [
+								"{{ep}}"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "demo-2-mysql",
+			"item": [
+				{
+					"name": "user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ep}}/users",
+							"host": [
+								"{{ep}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ep}}/users/2",
+							"host": [
+								"{{ep}}"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"fname\": \"ทดสอบ create\",\r\n        \"lname\": \"ทดสอบ create\",\r\n        \"username\": \"user3\",\r\n        \"password\": \"1234\",\r\n        \"avatar\": \"\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ep}}/users",
+							"host": [
+								"{{ep}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"fname\": \"ทดสอบ update\",\r\n        \"lname\": \"ทดสอบ update\",\r\n        \"username\": \"user3\",\r\n        \"password\": \"1234\",\r\n        \"avatar\": \"\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ep}}/users/5",
+							"host": [
+								"{{ep}}"
+							],
+							"path": [
+								"users",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"id\":3,\r\n        \"fname\": \"ทดสอบ update\",\r\n        \"lname\": \"ทดสอบ update\",\r\n        \"username\": \"user3\",\r\n        \"password\": \"1234\",\r\n        \"avatar\": \"\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ep}}/users/6",
+							"host": [
+								"{{ep}}"
+							],
+							"path": [
+								"users",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "ep",
+			"value": "http://localhost:5000",
+			"type": "string"
+		}
+	]
+}
