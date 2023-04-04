@@ -18,7 +18,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 // for register the model that you create example student model
-db.students = require("./student.model.js")(sequelize, Sequelize);
-db.faculty = require("./faculty.model.js")(sequelize, Sequelize);
+db.studentModel = require("./student.model.js")(sequelize, Sequelize);
+db.facultyModel = require("./faculty.model.js")(sequelize, Sequelize);
 
 module.exports = db;

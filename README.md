@@ -1,4 +1,7 @@
-# สร้าง API โดยใช้ JavaScript Node.js Express
+# การสร้าง API โดยใช้ JavaScript Node.js Express
+
+# คำนำ
+เอกสารฉบับนี้เป็นการพัฒนา web service หรือ RESTful API โดยใช้ภาษา JavaScript Node.js ร่วมกับเฟรมเวิร์กและไลบรารี่ต่าง ๆ ได้แก่ Express HTTP Framework Sequelize พร้อมทั้งสร้างฐานข้อมูลเชิงสัมพันธ์ โดยใช้ฐานข้อมูล MySQL และทดสอบ API โดยใช้ POSTMAN
 
 # สารบัญ
 
@@ -32,7 +35,7 @@
 
 - [PART 3-4 - สร้างโมเดล Student และ faculty](#part-3-4---สร้างโมเดล-student-และ-faculty)
 
-- [PART 3-5 - สร้าง controllers](#part-3-5---สร้าง-controllers)
+- [PART 3-5 - การสร้าง controllers](#part-3-5---การสร้าง-controllers)
 
 
 # 1. Basic API
@@ -853,6 +856,51 @@ db.faculty = require("./faculty.model.js")(sequelize, Sequelize);
 module.exports = db;
 ```
 
-## PART 3-5 - สร้าง controllers
+## PART 3-5 - การสร้าง controllers
 ### > [กลับไปที่สารบัญ](#สารบัญ)
 
+### สร้าง ไฟล์ `faculty.controller.js` ใน `controllers`
+- `faculty.controller.js`
+```js
+const db = require('../models')
+const faculty = db.faculty;
+
+// get all faculty
+const db = require('../models')
+const facultyModel = db.facultyModel;
+const Op = db.Sequelize.Op;
+
+exports.findAll = async (req, res) =>{
+	try {
+		const response = await facultyModel.findAll()
+		res.status(200).json({
+			message: "get all faculty was successfully",
+			payload: response
+		})	
+	} catch (error) {
+		res.status(500).json({
+			message:  error.message || "get all faculty was failed"
+		})		
+	}	
+}
+```
+
+- `student.controller.js`
+```js
+const db = require('../models')
+const studentModel = db.studentModel;
+// get all student
+exports.findAll = async (req, res) =>{
+	try {
+		const response = await studentModel.findAll()
+		res.status(200).json({
+			message: "get all student was successfully",
+			payload: response
+		})	
+	} catch (error) {
+		res.status(500).json({
+			message:  error.message || "get all student was failed"
+		})		
+	}	
+}
+```
