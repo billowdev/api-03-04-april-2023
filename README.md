@@ -19,10 +19,7 @@
 ## [2. Basic API MySql](#2-basic-api-mysql-1)
 
 - [PART 2-1 - Create new app Express and MySQL](#part-2-1---create-new-app-express-and-mysql)
-
-- [PART 2-2 - Connect MySQL Database
-](#part-2-2---connect-mysql-database)
-
+- [PART 2-2 - Connect MySQL Database](#part-2-2---connect-mysql-database)
 - [PART 2-3 - CREATE USER](#part-2-3---create-user)
 - [PART 2-4 - UPDATE USER](#part-2-4---update-user)
 - [PART 2-5 - DELETE USER](#part-2-5---delete-user)
@@ -32,10 +29,12 @@
 - [PART 3-1 - การติดตั้ง Sequelize](#part-3-1---การติดตั้ง-sequelize)
 - [PART 3-2 - New project for Sequelize demo](#part-3-2---new-project-for-sequelize-demo)
 - [PART 3-3 - Config Sequelize](#part-3-3---config-sequelize)
-
 - [PART 3-4 - สร้างโมเดล Student และ faculty](#part-3-4---สร้างโมเดล-student-และ-faculty)
-
 - [PART 3-5 - การสร้าง controllers](#part-3-5---การสร้าง-controllers)
+- [PART 3-6 - การสร้าง faculty routes](#part-3-6---การสร้าง-faculty-routes)
+- [PART 3-7 - การสร้าง student routes](#part-3-7---การสร้าง-student-routes)
+- [PART 3-8 - การสร้าง routes เพิ่มเติม](#part-3-8---การสร้าง-routes-เพิ่มเติม)
+
 
 
 # 1. Basic API
