@@ -13,10 +13,10 @@ module.exports = {
       // Handle token presented as a cookie parameter
       token = req.cookies.token;
     }
-
+    const SECRETKEY = "secret1234"
     if (!token)
       return res.status(404).send({ auth: false, message: 'No token provided.' });
-    jwt.verify(token, "secret1234", function (err, decoded) {
+    jwt.verify(token, SECRETKEY, function (err, decoded) {
       if (err)
         return res.status(404).send({ auth: false, message: 'Failed to authenticate token.' });
       // if everything good, save to request for use in other routes
