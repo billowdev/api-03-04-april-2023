@@ -5,7 +5,7 @@
 
 # สารบัญ
 
-### [1. Basic API](#1-basic-api-1)
+## [1. Basic API](#1-basic-api-1)
 - [PART 1-1 - Intro ](#part-1-1---Intro)
 - [PART 1-2 - สร้าง Route ด้วย express](#part-1-2---สร้าง-route-ด้วย-express)
 - [PART 1-3 - ตัวอย่างการสร้าง API](#part-1-3---ตัวอย่างการสร้าง-api)
@@ -16,7 +16,7 @@
 - [PART 1-8 - Mehod PUT](#part-1-8---method-put)
 - [PART 1-9 - Mehod DELETE](#part-1-9---method-delete)
 
-### [2. Basic API MySql](#2-basic-api-mysql-1)
+## [2. Basic API MySql](#2-basic-api-mysql-1)
 
 - [PART 2-1 - Create new app Express and MySQL](#part-2-1---create-new-app-express-and-mysql)
 
@@ -789,7 +789,7 @@ module.exports = (sequelize, Sequelize) => {
 		sequelize,
 		tableName: 'student',
 		freezeTableName: true,
-		timeStamps: false
+		timestamps: false
 	});
   
 	return Student;
@@ -813,7 +813,7 @@ module.exports = (sequelize, Sequelize) => {
 		sequelize,
 		tableName: 'faculty',
 		freezeTableName: true,
-		timeStamps: false
+		timestamps: false
 	});
   
 	return Faculty;
@@ -903,4 +903,105 @@ exports.findAll = async (req, res) =>{
 		})		
 	}	
 }
+```
+
+## PART 3-6 - การสร้าง faculty routes
+### > [กลับไปที่สารบัญ](#สารบัญ)
+
+- `faculty.route.js`
+```js
+const express = require("express");
+const router = express.Router();
+const facultyController = require("../controllers/faculty.controller");
+
+router.get("/", facultyController.findAll);
+
+module.exports = router;
+```
+
+### update in `server.js`
+```js
+const facultyRoute = require("./routes/faculty.route");
+app.use("/api/faculty", facultyRoute);
+```
+
+### ตัวอย่างโค้ดใน server.js สำหรับ PART 3-6 - การสร้าง faculty routes
+```js
+const express = require('express')
+const app = express();
+const db = require("./models");
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+const PORT = process.env.PORT || 5000
+
+app.get('/', (req, res) => {
+	res.json({ message: "Welcome to my app" })
+})
+
+const facultyRoute = require("./routes/faculty.route");
+app.use("/api/faculty", facultyRoute);
+
+db.sequelize.sync({ force: false })
+	.then(() => {
+		console.log("Database was synchronized successfully.");
+		app.listen(PORT, () => {
+			console.log(`SERVER ON PORT ${PORT}`)
+		})
+	})
+	.catch((err) => {
+		console.log("Failed to synchronize database: " + err.message);
+	});
+```
+
+
+## PART 3-7 - การสร้าง student routes
+### > [กลับไปที่สารบัญ](#สารบัญ)
+
+- `student.route.js`
+```js
+const express = require("express");
+const router = express.Router();
+const studentController = require("../controllers/student.controller");
+
+router.get("/", studentController.findAll);
+  
+module.exports = router;
+```
+
+
+### update in `server.js`
+```js
+const studentRoute = require("./routes/student.route");
+app.use("/api/student", studentRoute);
+```
+
+### ตัวอย่างโค้ดใน server.js สำหรับ PART 3-6 - การสร้าง faculty routes
+```js
+const express = require('express')
+const app = express();
+const db = require("./models");
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+const PORT = process.env.PORT || 5000
+
+app.get('/', (req, res) => {
+	res.json({ message: "Welcome to my app" })
+})
+
+const facultyRoute = require("./routes/faculty.route");
+app.use("/api/faculty", facultyRoute);
+
+const studentRoute = require("./routes/student.route");
+app.use("/api/student", studentRoute);
+
+db.sequelize.sync({ force: false })
+	.then(() => {
+		console.log("Database was synchronized successfully.");
+		app.listen(PORT, () => {
+			console.log(`SERVER ON PORT ${PORT}`)
+		})
+	})
+	.catch((err) => {
+		console.log("Failed to synchronize database: " + err.message);
+	});
 ```

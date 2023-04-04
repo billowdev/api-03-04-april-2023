@@ -9,6 +9,12 @@ app.get('/', (req, res) => {
 	res.json({ message: "Welcome to my app" })
 })
 
+const facultyRoute = require("./routes/faculty.route");
+app.use("/api/faculty", facultyRoute);
+
+const studentRoute = require("./routes/student.route");
+app.use("/api/student", studentRoute);
+
 db.sequelize.sync({ force: false })
 	.then(() => {
 		console.log("Database was synchronized successfully.");

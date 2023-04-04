@@ -6,6 +6,7 @@ const Op = db.Sequelize.Op;
 exports.findAll = async (req, res) =>{
 	try {
 		const response = await facultyModel.findAll()
+		console.log(facultyModel)
 		res.status(200).json({
 			message: "get all faculty was successfully",
 			payload: response

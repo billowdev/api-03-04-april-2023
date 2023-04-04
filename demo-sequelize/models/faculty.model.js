@@ -14,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
 		sequelize,
 		tableName: 'faculty',
 		freezeTableName: true,
-		timeStamps: false
+		timestamps: false
 	});
   
 	return Faculty;
