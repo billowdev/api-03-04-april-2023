@@ -20,10 +20,11 @@ module.exports = (sequelize, Sequelize) => {
     Faculty.associate = (models) => {
         Faculty.hasMany(models.student, {
             foreignKey: 'fac_id',
-            sourceKey: 'fac_id'
-
-        })
+            sourceKey: 'fac_id',
+            onDelete: "cascade",
+        });
     }
+
     return Faculty;
 
 }

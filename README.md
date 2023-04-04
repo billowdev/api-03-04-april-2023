@@ -34,9 +34,10 @@
 - [PART 3-6 - การสร้าง faculty routes](#part-3-6---การสร้าง-faculty-routes)
 - [PART 3-7 - การสร้าง student routes](#part-3-7---การสร้าง-student-routes)
 - [PART 3-8 - การสร้าง routes เพิ่มเติม](#part-3-8---การสร้าง-routes-เพิ่มเติม-ใน-faculty)
-- [PART 3-9 - การสร้าง controller & route สำหรับ student](#part-3-9---การสร้าง-controller--route-สำหรับ-student)
+- [PART 3-9 - การสร้าง controller & route สำหรับ CRUD Student](#part-3-9---การสร้าง-controller--route-สำหรับ-crud-student)
 
 
+## [4. Authorization with JWT](#4-authorization-with-jwt-1) 
 
 # 1. Basic API
 
@@ -784,12 +785,12 @@ module.exports = (sequelize, Sequelize) => {
         timestamps: false
     });
 
-    Faculty.associate = (models) => {
+      Faculty.associate = (models) => {
         Faculty.hasMany(models.student, {
             foreignKey: 'fac_id',
-            sourceKey: 'fac_id'
-
-        })
+            sourceKey: 'fac_id',
+            onDelete: "cascade",
+        });
     }
     return Faculty;
 
@@ -825,11 +826,11 @@ module.exports = (sequelize, Sequelize) => {
         timestamps: false
     });
 
-    Student.associate = (models) => {
-        Student.hasMany(models.faculty, {
+      Student.associate = (models) => {
+        Student.belongsTo(models.faculty, {
             foreignKey: 'fac_id',
-            sourceKey: 'fac_id'
-
+            sourceKey: 'fac_id',
+            onDelete: "cascade",
         });
     }
 
@@ -1374,5 +1375,115 @@ router.get("/:id", facultyController.findOne)
 ```
 
 
-## PART 3-9 - การสร้าง controller & route สำหรับ student
+## PART 3-9 - การสร้าง controller & route สำหรับ CRUD Student
 ### > [กลับไปที่สารบัญ](#สารบัญ)
+
+#### การสร้าง controller สำหรับ findOne ใน `student.controller.js`
+```js
+
+```
+#### การสร้าง route สำหรับ findOne ใน `student.route.js`
+```js
+
+```
+
+
+# 4. Authorization with JWT
+## PART 4-1 - Authorization with JWT
+### > [กลับไปที่สารบัญ](#สารบัญ)
+
+### install jwt
+
+```bash
+npm install jsonwebtoken
+```
+
+### เรียกใช้งาน jsonwebtoken
+```js
+const jwt = require('jsonwebtoken');
+```
+
+### การสร้าง controller ใน `student.controller.js`
+```js
+exports.login = async (req, res) => {
+    try {
+        const id = req.body.stdId;
+        const pass = req.body.stdPass
+        const response = await studentModel.findOne({
+            where: {
+                std_id: id,
+                std_pass: pass
+            },
+             raw:true
+        })
+
+        if (response) {
+            const SECRETKEY = "secret1234"
+            const token = jwt.sign({
+                std_id: response.stdId,
+            }, SECRETKEY, {
+                expiresIn: "1h",
+            });
+            delete response.stdPass;
+            res.status(200).json({
+                message: "login was successfully",
+                payload: { ...response, token }
+            })
+        } else {
+            res.status(400).json({
+                message: "login student was failed"
+            })
+        }
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message || "login student was failed"
+        })
+    }
+}
+```
+
+
+### การสร้าง route ใน `student.route.js`
+```js
+router.post("/login", studentController.login);
+```
+- สร้าง folder `middlewares`
+### สร้าง `verify-token.js` ใน middlewares folder
+
+```js
+const jwt = require('jsonwebtoken');
+
+module.exports = {
+	verifyToken(req, res, next) {
+		let token;
+		if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') { // Authorization: Bearer g1jipjgi1ifjioj
+			// Handle token presented as a Bearer token in the Authorization header
+			token = req.headers.authorization.split(' ')[1];
+		} else if (req.query && req.query.token) {
+			// Handle token presented as URI param
+			token = req.query.token;
+		} else if (req.cookies && req.cookies.token) {
+			// Handle token presented as a cookie parameter
+			token = req.cookies.token;
+		}
+
+		if (!token)
+			return res.status(404).send({ auth: false, message: 'No token provided.' });
+		jwt.verify(token, "secret1234", function (err, decoded) {
+			if (err)
+				return res.status(404).send({ auth: false, message: 'Failed to authenticate token.' });
+			// if everything good, save to request for use in other routes
+			req.user = decoded;
+			next();
+		});
+	},
+}
+```
+
+### ทดลองใช้ middleware เพื่อใช้ป้องกัน route เช่น ในไฟล์ faculty.route.js
+```js
+const VerifyToken = require('../middlewares/verify-token');
+
+router.get("/", VerifyToken.verifyToken, facultyController.findAll);
+```

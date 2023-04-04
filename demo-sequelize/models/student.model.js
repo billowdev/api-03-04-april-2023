@@ -26,10 +26,10 @@ module.exports = (sequelize, Sequelize) => {
     });
 
     Student.associate = (models) => {
-        Student.hasMany(models.faculty, {
+        Student.belongsTo(models.faculty, {
             foreignKey: 'fac_id',
-            sourceKey: 'fac_id'
-
+            sourceKey: 'fac_id',
+            onDelete: "cascade",
         });
     }
 

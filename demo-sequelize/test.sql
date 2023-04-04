@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `faculty` (
   PRIMARY KEY (`fac_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_std.faculty: ~6 rows (approximately)
+-- Dumping data for table db_std.faculty: ~0 rows (approximately)
 DELETE FROM `faculty`;
 INSERT INTO `faculty` (`fac_id`, `fac_name`) VALUES
 	(1, 'คณะวิทยาศาสตร์และเทคโนโลยี'),
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `student` (
   PRIMARY KEY (`std_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_std.student: ~40 rows (approximately)
+-- Dumping data for table db_std.student: ~0 rows (approximately)
 DELETE FROM `student`;
 INSERT INTO `student` (`std_id`, `std_pass`, `std_name`, `fac_id`) VALUES
 	('01', '1234', 'Akkarapon Phikulsri', 1),
