@@ -1,4 +1,4 @@
-# การอบรม API โดยใช้ JavaScript Node.js Express <br />(api-03-04-april-2023)
+# สร้าง API โดยใช้ JavaScript Node.js Express
 
 # สารบัญ
 
@@ -27,6 +27,7 @@
 ## [3. Sequelize](#3-sequelize)
 
 - [PART 3-1 - การติดตั้ง Sequelize](#part-3-1---การติดตั้ง-sequelize)
+- [PART 3-2 - New project for Sequelize demo](#part-3-2---new-project-for-sequelize-demo)
 
 
 
@@ -620,7 +621,8 @@ app.delete('/users/:id', (req, res, next) => {
 ```js
 npm install --save sequelize
 ```
-- การติดตั้ง driver สำหรับฐานข้อมูล
+- การติดตั้ง driver สำหรับฐานข้อมูล โดยต้องติดตั้งตามฐานข้อมูลที่ใช้ เช่น mysql จะต้องติดตั้ง mysql2 เป็นต้น
+
 - Postgres
 ```js
 npm install --save pg pg-hstore
@@ -644,4 +646,14 @@ npm install --save tedious
 - Oracle Database
 ```js
 npm install --save oracledb 
+```
+## PART 3-2 - New project for Sequelize demo
+### > [กลับไปที่สารบัญ](#สารบัญ)
+
+```bash
+npm init -y
+```
+- ติดตั้ง package
+```bash
+npm install express mysql2 cors sequelize
 ```
