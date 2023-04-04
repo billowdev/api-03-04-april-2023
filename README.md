@@ -24,6 +24,10 @@
 - [PART 2-4 - UPDATE USER](#part-2-4---update-user)
 - [PART 2-5 - DELETE USER](#part-2-5---delete-user)
 
+## [3. Sequelize](#3-sequelize)
+
+- [PART 3-1 - การติดตั้ง Sequelize](#part-3-1---การติดตั้ง-sequelize)
+
 
 
 # 1. Basic API
@@ -604,4 +608,40 @@ app.delete('/users/:id', (req, res, next) => {
 		res.status(400).json({ message: "delete user was failed" });
 	}
 })
+```
+
+# Sequelize
+
+## PART 3-1 - การติดตั้ง Sequelize
+### > [กลับไปที่สารบัญ](#สารบัญ)
+
+- การติดตั้ง sequelize
+- ดูข้อมูลเพิ่มเติมได้ที่ https://sequelize.org/docs/v6/getting-started
+```js
+npm install --save sequelize
+```
+- การติดตั้ง driver สำหรับฐานข้อมูล
+- Postgres
+```js
+npm install --save pg pg-hstore
+```
+- mysql2
+```js
+npm install --save mysql2
+```
+- mariadb
+```js
+npm install --save mariadb
+```
+- sqlite3
+```js
+npm install --save sqlite3
+```
+- Microsoft SQL Server
+```js
+npm install --save tedious
+```
+- Oracle Database
+```js
+npm install --save oracledb 
 ```
